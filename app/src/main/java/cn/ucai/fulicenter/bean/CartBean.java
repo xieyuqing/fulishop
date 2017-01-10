@@ -18,12 +18,11 @@ public class CartBean {
      * checked : false
      */
 
-    private int id;
+    private int id=0;
     private String userName;
     private int goodsId;
     private int count;
     private boolean isChecked;
-    private boolean checked;
     private GoodsDetailsBean goods;
 
     public int getId() {
@@ -66,14 +65,6 @@ public class CartBean {
         this.isChecked = isChecked;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
     public GoodsDetailsBean getGoods() {
         return goods;
     }
@@ -91,7 +82,6 @@ public class CartBean {
                 ", goodsId=" + goodsId +
                 ", count=" + count +
                 ", isChecked=" + isChecked +
-                ", checked=" + checked +
                 ", goods=" + goods +
                 '}';
     }

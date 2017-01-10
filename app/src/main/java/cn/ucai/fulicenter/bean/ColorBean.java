@@ -91,4 +91,19 @@ public class ColorBean {
     public void setAlbums(List<?> albums) {
         this.albums = albums;
     }
+
+    @Override
+    public String toString() {
+        return "ColorBean{" +
+                "id=" + id +
+                ", goodsId=" + goodsId +
+                ", colorId=" + colorId +
+                ", colorName='" + colorName + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                ", colorImg='" + colorImg + '\'' +
+                ", colorUrl='" + colorUrl + '\'' +
+                ", albums=" + albums +
+                '}';
+    }
 }
+

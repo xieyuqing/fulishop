@@ -49,4 +49,14 @@ public class CategoryChildBean {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryChildBean{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

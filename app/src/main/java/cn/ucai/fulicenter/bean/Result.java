@@ -14,8 +14,19 @@ public class Result {
 
     private int retCode;
     private boolean retMsg;
-    private RetDataBean retData;
-
+    private Object retData;
+    public Result() {
+    }
+    public Result(boolean retMsg,int retCode){
+        this.retMsg = retMsg;
+        this.retCode = retCode;
+    }
+    public Result(int retCode, boolean retMsg, Object retData) {
+        super();
+        this.retCode = retCode;
+        this.retMsg = retMsg;
+        this.retData = retData;
+    }
     public int getRetCode() {
         return retCode;
     }
@@ -32,87 +43,20 @@ public class Result {
         this.retMsg = retMsg;
     }
 
-    public RetDataBean getRetData() {
+    public Object getRetData() {
         return retData;
     }
 
-    public void setRetData(RetDataBean retData) {
+    public void setRetData(Object retData) {
         this.retData = retData;
     }
 
-    public static class RetDataBean {
-        /**
-         * muserName : a952700
-         * muserNick : 士大夫
-         * mavatarId : 72
-         * mavatarPath : user_avatar
-         * mavatarSuffix : .jpg
-         * mavatarType : 0
-         * mavatarLastUpdateTime : 1478492451603
-         */
-
-        private String muserName;
-        private String muserNick;
-        private int mavatarId;
-        private String mavatarPath;
-        private String mavatarSuffix;
-        private int mavatarType;
-        private String mavatarLastUpdateTime;
-
-        public String getMuserName() {
-            return muserName;
-        }
-
-        public void setMuserName(String muserName) {
-            this.muserName = muserName;
-        }
-
-        public String getMuserNick() {
-            return muserNick;
-        }
-
-        public void setMuserNick(String muserNick) {
-            this.muserNick = muserNick;
-        }
-
-        public int getMavatarId() {
-            return mavatarId;
-        }
-
-        public void setMavatarId(int mavatarId) {
-            this.mavatarId = mavatarId;
-        }
-
-        public String getMavatarPath() {
-            return mavatarPath;
-        }
-
-        public void setMavatarPath(String mavatarPath) {
-            this.mavatarPath = mavatarPath;
-        }
-
-        public String getMavatarSuffix() {
-            return mavatarSuffix;
-        }
-
-        public void setMavatarSuffix(String mavatarSuffix) {
-            this.mavatarSuffix = mavatarSuffix;
-        }
-
-        public int getMavatarType() {
-            return mavatarType;
-        }
-
-        public void setMavatarType(int mavatarType) {
-            this.mavatarType = mavatarType;
-        }
-
-        public String getMavatarLastUpdateTime() {
-            return mavatarLastUpdateTime;
-        }
-
-        public void setMavatarLastUpdateTime(String mavatarLastUpdateTime) {
-            this.mavatarLastUpdateTime = mavatarLastUpdateTime;
-        }
+    @Override
+    public String toString() {
+        return "Result{" +
+                "retCode=" + retCode +
+                ", retMsg=" + retMsg +
+                ", retData=" + retData +
+                '}';
     }
 }

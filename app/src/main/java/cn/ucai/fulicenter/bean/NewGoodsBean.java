@@ -181,4 +181,27 @@ public class NewGoodsBean {
     public void setProperties(List<?> properties) {
         this.properties = properties;
     }
+
+    @Override
+    public String toString() {
+        return "NewGoodsBean{" +
+                "id=" + id +
+                ", goodsId=" + goodsId +
+                ", catId=" + catId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsEnglishName='" + goodsEnglishName + '\'' +
+                ", goodsBrief='" + goodsBrief + '\'' +
+                ", shopPrice='" + shopPrice + '\'' +
+                ", currencyPrice='" + currencyPrice + '\'' +
+                ", promotePrice='" + promotePrice + '\'' +
+                ", rankPrice='" + rankPrice + '\'' +
+                ", isPromote=" + isPromote +
+                ", goodsThumb='" + goodsThumb + '\'' +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", addTime=" + addTime +
+                ", shareUrl='" + shareUrl + '\'' +
+                ", promote=" + promote +
+                ", properties=" + properties +
+                '}';
+    }
 }

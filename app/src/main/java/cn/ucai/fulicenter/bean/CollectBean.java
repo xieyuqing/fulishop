@@ -89,4 +89,34 @@ public class CollectBean {
     public void setAddTime(long addTime) {
         this.addTime = addTime;
     }
+
+    @Override
+    public String toString() {
+        return "CollectBean{" +
+                "id=" + id +
+                ", userName=" + userName +
+                ", goodsId=" + goodsId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsEnglishName='" + goodsEnglishName + '\'' +
+                ", goodsThumb='" + goodsThumb + '\'' +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", addTime=" + addTime +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CollectBean)) return false;
+
+        CollectBean that = (CollectBean) o;
+
+        return getGoodsId() == that.getGoodsId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getGoodsId();
+    }
 }
