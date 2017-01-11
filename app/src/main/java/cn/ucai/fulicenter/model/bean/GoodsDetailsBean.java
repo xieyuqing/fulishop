@@ -1,7 +1,6 @@
-package cn.ucai.fulicenter.bean;
+package cn.ucai.fulicenter.model.bean;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/1/9 0009.

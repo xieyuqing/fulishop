@@ -1,22 +1,22 @@
-package cn.ucai.fulicenter.bean;
+package cn.ucai.fulicenter.model.bean;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Created by Administrator on 2017/1/9 0009.
  */
 
-public class ColorBean {
+public class PropertiesBean {
 
     /**
-     * id : 8445
+     * id : 9522
      * goodsId : 0
-     * colorId : 10
-     * colorName : 花青
-     * colorCode : #488eb5
-     * colorImg :
-     * colorUrl : http://item.jd.com/745025.html
-     * albums : []
+     * colorId : 4
+     * colorName : 绿色
+     * colorCode : #59d85c
+     * colorImg : 201309/1380064997570506166.jpg
+     * colorUrl : 1
+     * albums : [{"pid":7672,"imgId":28283,"imgUrl":"201509/goods_img/7672_P_1442389445199.jpg","thumbUrl":"no_picture.gif"}]
      */
 
     private int id;
@@ -26,7 +26,7 @@ public class ColorBean {
     private String colorCode;
     private String colorImg;
     private String colorUrl;
-    private List<?> albums;
+    private AlbumsBean[] albums;
 
     public int getId() {
         return id;
@@ -84,17 +84,17 @@ public class ColorBean {
         this.colorUrl = colorUrl;
     }
 
-    public List<?> getAlbums() {
+    public AlbumsBean[] getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<?> albums) {
+    public void setAlbums(AlbumsBean[] albums) {
         this.albums = albums;
     }
 
     @Override
     public String toString() {
-        return "ColorBean{" +
+        return "PropertiesBean{" +
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", colorId=" + colorId +
@@ -102,8 +102,7 @@ public class ColorBean {
                 ", colorCode='" + colorCode + '\'' +
                 ", colorImg='" + colorImg + '\'' +
                 ", colorUrl='" + colorUrl + '\'' +
-                ", albums=" + albums +
+                ", albums=" + Arrays.toString(albums) +
                 '}';
     }
 }
-
