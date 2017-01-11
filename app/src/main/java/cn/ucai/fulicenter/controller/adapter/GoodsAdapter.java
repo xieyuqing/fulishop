@@ -2,7 +2,6 @@ package cn.ucai.fulicenter.controller.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,6 +23,7 @@ import cn.ucai.fulicenter.model.utils.ImageLoader;
 public class GoodsAdapter extends RecyclerView.Adapter {
     Context mContext;
     ArrayList<NewGoodsBean> mList;
+    boolean isMore;
 
     public GoodsAdapter(Context context, ArrayList<NewGoodsBean> list) {
         mContext = context;
@@ -33,16 +33,14 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater.from(mContext).inflate(R.layout.item_goods, null);
-        return null;
+        RecyclerView.ViewHolder holder =
+                new GoodsViewHolder(View.inflate(mContext, R.layout.item_goods, null));
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         GoodsViewHolder vh= (GoodsViewHolder) holder;
-        if (holder == null) {
-            vh = (GoodsViewHolder) holder;
-        }
         ImageLoader.downloadImg(mContext,vh.mIvGoodsThumb,mList.get(position).getGoodsThumb());
         vh.mTvGoodsName.setText(mList.get(position).getGoodsName());
         vh.mTvGoodsPrice.setText(mList.get(position).getCurrencyPrice());
@@ -50,8 +48,17 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mList.size();
     }
+
+    public void initData(ArrayList<NewGoodsBean> list) {
+        if (mList != null) {
+            mList.clear();
+        }
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
 
     static class GoodsViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ivGoodsThumb)

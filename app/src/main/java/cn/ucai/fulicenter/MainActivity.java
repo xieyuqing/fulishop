@@ -7,6 +7,7 @@ import android.widget.RadioButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
     int index, currentIndex;
@@ -33,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         rbs[2] = mLayoutCategory;
         rbs[3] = mLayoutCart;
         rbs[4] = mLayotuPersonal;
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container,new NewGoodsFragment())
+                .commit();
+
     }
 
     public void onCheckedChange(View view) {
