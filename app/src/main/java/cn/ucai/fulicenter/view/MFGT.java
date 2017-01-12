@@ -35,5 +35,11 @@ public class MFGT {
         intent.putExtra(I.Boutique.NAME, boutiqueBean.getTitle());
         startActivity((Activity) context,intent);
     }
+
+    public static void gotoGoodsDetail(Context context, int goodId) {
+        Intent intent = new Intent(context, BoutiqueChildActivity.class);
+        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodId);
+        startActivity((Activity) context,intent);
+    }
 }
 
