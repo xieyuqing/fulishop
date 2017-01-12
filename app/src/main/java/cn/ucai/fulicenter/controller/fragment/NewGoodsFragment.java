@@ -2,7 +2,6 @@ package cn.ucai.fulicenter.controller.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -101,10 +100,9 @@ public class NewGoodsFragment extends Fragment {
         });
     }
 
-
-
     private void initData(final int action) {
-        model.downData(getContext(), I.CAT_ID, pageId, new OnCompleteListener<NewGoodsBean[]>() {
+        int catId = getActivity().getIntent().getIntExtra(I.NewAndBoutiqueGoods.CAT_ID,I.CAT_ID);
+        model.downData(getContext(), catId, pageId, new OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 mSrl.setRefreshing(false);
@@ -151,5 +149,9 @@ public class NewGoodsFragment extends Fragment {
         mRv.setHasFixedSize(true);
         mAdapter = new GoodsAdapter(getContext(),mList);
         mRv.setAdapter(mAdapter);
+    }
+
+    public void onClick(View view) {
+
     }
 }

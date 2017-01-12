@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_boutique_child"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/BoutiqueClild_titile"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/good_detail_title_bg">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"/>
+        <TextView
+            android:id="@+id/BoutiqueClild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="child"
+            android:textColor="#FFF"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/back"/>
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/BoutiqueClild_titile">
+
+    </FrameLayout>
+</RelativeLayout>
