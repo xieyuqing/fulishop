@@ -10,16 +10,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
+import cn.ucai.fulicenter.model.bean.AlbumsBean;
 import cn.ucai.fulicenter.model.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.model.net.IModelGoods;
 import cn.ucai.fulicenter.model.net.ModelGoods;
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
+import cn.ucai.fulicenter.model.utils.L;
 import cn.ucai.fulicenter.view.FlowIndicator;
 import cn.ucai.fulicenter.view.MFGT;
 import cn.ucai.fulicenter.view.SlideAutoLoopView;
 
 
 public class GoodsDetailsActivity extends AppCompatActivity {
+    private static final String TAG = GoodsDetailsActivity.class.getSimpleName();
     int goodsId = 0;
     IModelGoods model;
 
@@ -58,18 +61,46 @@ public class GoodsDetailsActivity extends AppCompatActivity {
             public void onSuccess(GoodsDetailsBean result) {
                 if (result != null) {
                     showGoodsDetail(result);
+                } else {
+                    MFGT.finish(GoodsDetailsActivity.this);
                 }
             }
 
             @Override
             public void onError(String error) {
-
+                L.e(TAG,"error="+error);
             }
         });
     }
 
     private void showGoodsDetail(GoodsDetailsBean result) {
+        tvGoodName.setText(result.getGoodsName());
+        tvGoodNameEnglish.setText(result.getGoodsEnglishName());
+        tvGoodPriceCurrent.setText(result.getCurrencyPrice());
+        tvGoodPriceShop.setText(result.getShopPrice());
+        salv.startPlayLoop(indicator,getAlbumUrl(result),getAlbumCount(result));
+        wvGoodBrief.loadDataWithBaseURL(null,result.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
+    }
 
+    private String[] getAlbumUrl(GoodsDetailsBean result) {
+        if(result !=null && result.getProperties() != null&&result.getProperties().length>0){
+            AlbumsBean[] albums = result.getProperties()[0].getAlbums();
+            if (albums != null && albums.length > 0) {
+                String[] urls = new String[albums.length];
+                for(int i=0;i<albums.length;i++) {
+                    urls[i] = albums[i].getImgUrl();
+                }
+                return  urls;
+            }
+        }
+        return new String[0];
+    }
+
+    private int getAlbumCount(GoodsDetailsBean result) {
+        if(result !=null && result.getProperties() != null&&result.getProperties().length>0) {
+            return  result.getProperties()[0].getAlbums().length;
+        }
+        return 0;
     }
 
     @OnClick(R.id.backClickArea)

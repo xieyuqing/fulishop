@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.model.bean.GoodsDetailsBean;
 
 public class FlowIndicator extends View {
 
@@ -115,7 +116,6 @@ public class FlowIndicator extends View {
             canvas.drawCircle(x, getHeight()/2, mRadius, paint);
         }
     }
-
 }
 
 /**
