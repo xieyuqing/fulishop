@@ -7,19 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.activity.BoutiqueChildActivity;
-import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.utils.ImageLoader;
-import cn.ucai.fulicenter.view.FooterViewHolder;
+import cn.ucai.fulicenter.view.MFGT;
 
 /**
  * Created by Administrator on 2017/1/11 0011.
@@ -28,6 +29,7 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
 public class BoutiqueAdapter extends RecyclerView.Adapter {
     Context mContext;
     ArrayList<BoutiqueBean> mList;
+
 
     public BoutiqueAdapter(Context context, ArrayList<BoutiqueBean> list) {
         mContext = context;
@@ -46,21 +48,17 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            BoutiqueViewHolder vh = (BoutiqueViewHolder) holder;
-            ImageLoader.downloadImg(mContext, vh.mIvBoutiqueImg, mList.get(position).getImageurl());
-            vh.mTvBoutiqueName.setText(mList.get(position).getName());
-            vh.mTvBoutiqueTitle.setText(mList.get(position).getTitle());
-            vh.mTvBoutiqueDescription.setText(mList.get(position).getDescription());
-            vh.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext, BoutiqueChildActivity.class)
-                    .putExtra(I.NewAndBoutiqueGoods.CAT_ID,mList.get(position).getId())
-                    .putExtra(I.Boutique.TITLE,mList.get(position).getName()));
-
-
-                }
-            });
+        BoutiqueViewHolder vh = (BoutiqueViewHolder) holder;
+        ImageLoader.downloadImg(mContext, vh.mIvBoutiqueImg, mList.get(position).getImageurl());
+        vh.mTvBoutiqueName.setText(mList.get(position).getName());
+        vh.mTvBoutiqueTitle.setText(mList.get(position).getTitle());
+        vh.mTvBoutiqueDescription.setText(mList.get(position).getDescription());
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             MFGT.gotoBoutiqueChild(mContext,mList.get(position));
+            }
+        });
     }
 
 
@@ -82,7 +80,8 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
     }
 
 
-    static class BoutiqueViewHolder extends RecyclerView.ViewHolder{
+
+    static class BoutiqueViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ivBoutiqueImg)
         ImageView mIvBoutiqueImg;
         @BindView(R.id.tvBoutiqueTitle)
@@ -91,6 +90,9 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         TextView mTvBoutiqueName;
         @BindView(R.id.tvBoutiqueDescription)
         TextView mTvBoutiqueDescription;
+        @BindView(R.id.layout_boutique_item)
+        RelativeLayout layoutBoutiqueItem;
+
         BoutiqueViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

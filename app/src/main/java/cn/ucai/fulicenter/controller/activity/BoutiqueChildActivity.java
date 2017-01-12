@@ -15,25 +15,24 @@ import cn.ucai.fulicenter.view.MFGT;
 
 public class BoutiqueChildActivity extends AppCompatActivity {
 
-    @BindView(R.id.BoutiqueClild)
-    TextView BoutiqueClild;
+
+    @BindView(R.id.tv_common_title)
+    TextView mTvCommonTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boutique_child);
         ButterKnife.bind(this);
-
-        String title = getIntent().getStringExtra(I.Boutique.TITLE);
-        BoutiqueClild.setText(title);
-
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, new NewGoodsFragment())
                 .commit();
+        mTvCommonTitle.setText(getIntent().getStringExtra(I.Boutique.NAME));
     }
 
-    @OnClick(R.id.back)
+
+    @OnClick(R.id.backClickArea)
     public void onClick() {
-        MFGT.finish(BoutiqueChildActivity.this);
+        MFGT.finish(this);
     }
 }
