@@ -4,7 +4,6 @@ package cn.ucai.fulicenter.controller.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,17 +15,15 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.application.SpaceItemDecoration;
 import cn.ucai.fulicenter.controller.adapter.BoutiqueAdapter;
-import cn.ucai.fulicenter.controller.adapter.BoutiqueAdapter;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 import cn.ucai.fulicenter.model.net.IModelNewBoutique;
-import cn.ucai.fulicenter.model.net.IModelNewGoods;
 import cn.ucai.fulicenter.model.net.ModelBoutique;
-import cn.ucai.fulicenter.model.net.ModelNewGoods;
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
 import cn.ucai.fulicenter.model.utils.CommonUtils;
 import cn.ucai.fulicenter.model.utils.ConvertUtils;
@@ -51,7 +48,9 @@ public class BoutiqueFragment extends Fragment {
     BoutiqueAdapter mAdapter;
     ArrayList<NewGoodsBean> mList = new ArrayList<>();
     IModelNewBoutique model;
-    int pageId =1;
+    @BindView(R.id.tv)
+    TextView mTv;
+
     public BoutiqueFragment() {
         // Required empty public constructor
     }
@@ -64,31 +63,9 @@ public class BoutiqueFragment extends Fragment {
 
         intiView();
         model = new ModelBoutique();
-        initData(I.ACTION_DOWNLOAD);
+        //initData(I.ACTION_DOWNLOAD);
         setPullDownListener();
-        setPullUpListener();
         return layout;
-    }
-    private void setPullUpListener() {
-        mRv.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int lastPosition = gm.findLastVisibleItemPosition();
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastPosition == mAdapter.getItemCount() - 1
-                        && mAdapter.isMore()) {
-                    pageId++;
-                    initData(I.ACTION_PULL_UP);
-                }
-            }
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int firstPosition = gm.findFirstVisibleItemPosition();
-                mSrl.setEnabled(firstPosition==0);
-            }
-        });
     }
 
     private void setPullDownListener() {
@@ -97,12 +74,10 @@ public class BoutiqueFragment extends Fragment {
             public void onRefresh() {
                 mSrl.setRefreshing(true);
                 mTvRefresh.setVisibility(View.VISIBLE);
-                pageId=1;
                 initData(I.ACTION_PULL_DOWN);
             }
         });
     }
-
 
 
     private void initData(final int action) {
@@ -111,7 +86,8 @@ public class BoutiqueFragment extends Fragment {
             public void onSuccess(BoutiqueBean[] result) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(true);
+                mSrl.setVisibility(View.VISIBLE);
+                mTv.setVisibility(View.GONE);
                 if (result != null && result.length > 0) {
                     ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
                     //L.e(TAG, "list.size=" + list.size());
@@ -120,19 +96,19 @@ public class BoutiqueFragment extends Fragment {
                     } else {
                         mAdapter.addData(list);
                     }
-                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
-                        mAdapter.setMore(false);
-                    }
                 } else {
-                    mAdapter.setMore(false);
+                    mTv.setVisibility(View.VISIBLE);
+                    mSrl.setVisibility(View.GONE);
                 }
+
             }
 
             @Override
             public void onError(String error) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(false);
+                mTv.setVisibility(View.VISIBLE);
+                mSrl.setVisibility(View.GONE);
                 CommonUtils.showShortToast(error);
                 L.e(TAG, "error=" + error);
                 //L.e(TAG,"error="+error);
@@ -147,11 +123,18 @@ public class BoutiqueFragment extends Fragment {
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow)
         );
+        mTv.setVisibility(View.VISIBLE);
+        mSrl.setVisibility(View.GONE);
         gm = new LinearLayoutManager(getContext());
         mRv.addItemDecoration(new SpaceItemDecoration(12));
         mRv.setLayoutManager(gm);
         mRv.setHasFixedSize(true);
-        mAdapter = new BoutiqueAdapter(getContext(),null);
+        mAdapter = new BoutiqueAdapter(getContext(), null);
         mRv.setAdapter(mAdapter);
+    }
+
+    @OnClick(R.id.tv)
+    public void onClick() {
+        initData(I.ACTION_PULL_DOWN);
     }
 }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,16 +25,6 @@ import cn.ucai.fulicenter.view.FooterViewHolder;
 public class BoutiqueAdapter extends RecyclerView.Adapter {
     Context mContext;
     ArrayList<BoutiqueBean> mList;
-    boolean isMore;
-
-    public boolean isMore() {
-        return isMore;
-    }
-
-    public void setMore(boolean more) {
-        isMore = more;
-        notifyDataSetChanged();
-    }
 
     public BoutiqueAdapter(Context context, ArrayList<BoutiqueBean> list) {
         mContext = context;
@@ -47,37 +36,20 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder holder = null;
-        if (viewType == I.TYPE_FOOTER) {
-            holder = new FooterViewHolder(View.inflate(mContext, R.layout.item_footer, null));
-        } else {
-            holder = new BoutiqueViewHolder(View.inflate(mContext, R.layout.item_boutique, null));
-        }
+        RecyclerView.ViewHolder holder = new BoutiqueViewHolder(View.inflate(mContext, R.layout.item_boutique, null));
         LayoutInflater inflater = LayoutInflater.from(mContext);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == I.TYPE_FOOTER) {
-            FooterViewHolder vh = (FooterViewHolder) holder;
-            vh.setFooterString(mContext.getString(getFooterString()));
-        } else {
             BoutiqueViewHolder vh = (BoutiqueViewHolder) holder;
             ImageLoader.downloadImg(mContext, vh.mIvBoutiqueImg, mList.get(position).getImageurl());
             vh.mTvBoutiqueName.setText(mList.get(position).getName());
             vh.mTvBoutiqueTitle.setText(mList.get(position).getTitle());
             vh.mTvBoutiqueDescription.setText(mList.get(position).getDescription());
-        }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
-            return I.TYPE_FOOTER;
-        }
-        return I.TYPE_ITEM;
-    }
 
     @Override
     public int getItemCount() {
@@ -94,11 +66,6 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
     public void addData(ArrayList<BoutiqueBean> list) {
         mList.addAll(list);
         notifyDataSetChanged();
-    }
-
-    public int getFooterString() {
-
-        return isMore ? R.string.load_more : R.string.no_more;
     }
 
 
