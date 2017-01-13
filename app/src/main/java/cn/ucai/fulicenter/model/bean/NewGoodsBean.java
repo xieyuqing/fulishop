@@ -41,7 +41,7 @@ public class NewGoodsBean {
     private boolean isPromote;
     private String goodsThumb;
     private String goodsImg;
-    private long addTime;
+    private Long addTime;
     private String shareUrl;
     private boolean promote;
     private List<?> properties;
@@ -150,11 +150,11 @@ public class NewGoodsBean {
         this.goodsImg = goodsImg;
     }
 
-    public long getAddTime() {
+    public Long getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(long addTime) {
+    public void setAddTime(Long addTime) {
         this.addTime = addTime;
     }
 

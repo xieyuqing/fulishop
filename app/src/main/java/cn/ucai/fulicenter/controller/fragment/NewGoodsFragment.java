@@ -151,7 +151,8 @@ public class NewGoodsFragment extends Fragment {
         mRv.setAdapter(mAdapter);
     }
 
-    public void onClick(View view) {
 
+    public void sortGoods(int sortBy) {
+        mAdapter.SortGoods(sortBy);
     }
 }
