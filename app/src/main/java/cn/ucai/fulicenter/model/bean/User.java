@@ -1,7 +1,10 @@
 package cn.ucai.fulicenter.model.bean;
 
+
+import cn.ucai.fulicenter.application.I;
+
 /**
- * Created by Administrator on 2017/1/9 0009.
+ * Created by clawpo on 2016/10/21.
  */
 
 public class User {
@@ -57,7 +60,7 @@ public class User {
     }
 
     public String getMavatarSuffix() {
-        return mavatarSuffix;
+        return mavatarSuffix!=null?mavatarSuffix: I.AVATAR_SUFFIX_JPG;
     }
 
     public void setMavatarSuffix(String mavatarSuffix) {

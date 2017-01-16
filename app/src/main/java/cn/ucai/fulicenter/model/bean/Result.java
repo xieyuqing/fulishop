@@ -1,18 +1,9 @@
 package cn.ucai.fulicenter.model.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
+import java.io.Serializable;
 
-public class Result {
-
-    /**
-     * retCode : 0
-     * retMsg : true
-     * retData : {"muserName":"a952700","muserNick":"士大夫","mavatarId":72,"mavatarPath":"user_avatar","mavatarSuffix":".jpg","mavatarType":0,"mavatarLastUpdateTime":"1478492451603"}
-     */
-
-    private int retCode;
+public class Result implements Serializable {
+    private int retCode = -1;
     private boolean retMsg;
     private Object retData;
     public Result() {
@@ -30,33 +21,23 @@ public class Result {
     public int getRetCode() {
         return retCode;
     }
-
     public void setRetCode(int retCode) {
         this.retCode = retCode;
     }
-
     public boolean isRetMsg() {
         return retMsg;
     }
-
     public void setRetMsg(boolean retMsg) {
         this.retMsg = retMsg;
     }
-
     public Object getRetData() {
         return retData;
     }
-
     public void setRetData(Object retData) {
         this.retData = retData;
     }
-
     @Override
     public String toString() {
-        return "Result{" +
-                "retCode=" + retCode +
-                ", retMsg=" + retMsg +
-                ", retData=" + retData +
-                '}';
+        return "Result [retCode=" + retCode + ", retMsg=" + retMsg + ", retData=" + retData + "]";
     }
 }

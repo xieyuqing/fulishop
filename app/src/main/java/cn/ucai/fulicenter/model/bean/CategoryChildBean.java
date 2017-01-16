@@ -1,16 +1,14 @@
 package cn.ucai.fulicenter.model.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
+import java.io.Serializable;
 
-public class CategoryChildBean {
+public class CategoryChildBean implements Serializable {
 
     /**
-     * id : 345
+     * id : 348
      * parentId : 344
-     * name : 热门
-     * imageUrl : cat_image/256_1.png
+     * name : 败姐推荐
+     * imageUrl : cat_image/256_4.png
      */
 
     private int id;

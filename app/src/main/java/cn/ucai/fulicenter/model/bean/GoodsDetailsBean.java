@@ -1,32 +1,9 @@
 package cn.ucai.fulicenter.model.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
-
-public class GoodsDetailsBean {
-
-    /**
-     * id : 278
-     * goodsId : 7672
-     * catId : 291
-     * goodsName : 趣味煮蛋模具
-     * goodsEnglishName : Kotobuki
-     * goodsBrief : 将煮好的鸡蛋放到模具中，扣好卡扣，把蛋模放冰水，耐心等上10分钟，就可以变化成各种各样的形状，宝宝看了说不定胃口大开！
-     * shopPrice : ￥110
-     * currencyPrice : ￥140
-     * promotePrice : ￥0
-     * rankPrice : ￥140
-     * isPromote : false
-     * goodsThumb : 201509/thumb_img/7672_thumb_G_1442389445719.jpg
-     * goodsImg : 201509/thumb_img/7672_thumb_G_1442389445719.jpg
-     * addTime : 1476820611547
-     * shareUrl : http://m.fulishe.com/item/7672
-     * properties : []
-     * promote : false
-     */
+public class GoodsDetailsBean implements Serializable {
 
     private int id;
     private int goodsId;
@@ -38,12 +15,11 @@ public class GoodsDetailsBean {
     private String currencyPrice;
     private String promotePrice;
     private String rankPrice;
-    private boolean isPromote;
     private String goodsThumb;
     private String goodsImg;
     private long addTime;
     private String shareUrl;
-    private boolean promote;
+    private boolean isPromote;
     private PropertiesBean[] properties;
 
     public int getId() {
@@ -126,14 +102,6 @@ public class GoodsDetailsBean {
         this.rankPrice = rankPrice;
     }
 
-    public boolean isIsPromote() {
-        return isPromote;
-    }
-
-    public void setIsPromote(boolean isPromote) {
-        this.isPromote = isPromote;
-    }
-
     public String getGoodsThumb() {
         return goodsThumb;
     }
@@ -167,11 +135,11 @@ public class GoodsDetailsBean {
     }
 
     public boolean isPromote() {
-        return promote;
+        return isPromote;
     }
 
     public void setPromote(boolean promote) {
-        this.promote = promote;
+        this.isPromote = promote;
     }
 
     public PropertiesBean[] getProperties() {
@@ -184,7 +152,7 @@ public class GoodsDetailsBean {
 
     @Override
     public String toString() {
-        return "GoodsDetailsBean{" +
+        return "GoodDetailsBean{" +
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", catId=" + catId +
@@ -195,12 +163,11 @@ public class GoodsDetailsBean {
                 ", currencyPrice='" + currencyPrice + '\'' +
                 ", promotePrice='" + promotePrice + '\'' +
                 ", rankPrice='" + rankPrice + '\'' +
-                ", isPromote=" + isPromote +
                 ", goodsThumb='" + goodsThumb + '\'' +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", addTime=" + addTime +
                 ", shareUrl='" + shareUrl + '\'' +
-                ", promote=" + promote +
+                ", promote=" + isPromote +
                 ", properties=" + Arrays.toString(properties) +
                 '}';
     }

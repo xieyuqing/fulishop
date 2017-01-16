@@ -101,7 +101,7 @@ public class ResultUtils {
                         cart.setCount(jsonObject.getInt("count"));
                     }
                     if(!jsonObject.isNull("isChecked")) {
-                        cart.setIsChecked(false);
+                        cart.setChecked(false);
                     }
                     if(!jsonObject.isNull("goods")) {
                         try {

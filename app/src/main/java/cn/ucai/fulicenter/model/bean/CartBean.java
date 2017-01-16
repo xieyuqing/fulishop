@@ -1,20 +1,8 @@
 package cn.ucai.fulicenter.model.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
+import java.io.Serializable;
 
-public class CartBean {
-
-    /**
-     * id : 2016
-     * userName : a123456
-     * goodsId : 7672
-     * goods : []
-     * count : 2
-     * isChecked : false
-     * checked : false
-     */
+public class CartBean implements Serializable {
 
     private int id=0;
     private String userName;
@@ -55,12 +43,12 @@ public class CartBean {
         this.count = count;
     }
 
-    public boolean isIsChecked() {
+    public boolean isChecked() {
         return isChecked;
     }
 
-    public void setIsChecked(boolean isChecked) {
-        this.isChecked = isChecked;
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
     }
 
     public GoodsDetailsBean getGoods() {
@@ -72,15 +60,34 @@ public class CartBean {
     }
 
 
+    public CartBean() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartBean)) return false;
+
+        CartBean cartBean = (CartBean) o;
+
+        return getId() == cartBean.getId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
+    }
+
     @Override
     public String toString() {
         return "CartBean{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", userName=" + userName +
                 ", goodsId=" + goodsId +
                 ", count=" + count +
-                ", isChecked=" + isChecked +
-                ", goods=" + goods +
+                ", checked=" + isChecked +
+                ", goods='" + goods + '\'' +
                 '}';
     }
 }

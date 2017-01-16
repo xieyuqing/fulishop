@@ -15,7 +15,6 @@
         android:layout_toRightOf="@id/ivCategoryChildThumb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_centerVertical="true"
         android:text="鞋子"
         android:textColor="#fff"

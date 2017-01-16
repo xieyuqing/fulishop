@@ -1,14 +1,10 @@
 package cn.ucai.fulicenter.model.bean;
 
-/**
- * Created by Administrator on 2017/1/9 0009.
- */
-
 public class MessageBean {
 
     /**
-     * success : false
-     * msg : 修改购物车中的商品失败
+     * success : true
+     * msg : 添加收藏成功
      */
 
     private boolean success;

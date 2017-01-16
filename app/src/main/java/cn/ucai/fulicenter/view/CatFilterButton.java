@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.controller.activity.CategoryChildActivity;
 import cn.ucai.fulicenter.model.bean.CategoryChildBean;
+import cn.ucai.fulicenter.model.utils.ImageLoader;
 
 /**
  * Created by Administrator on 2017/1/16 0016.
@@ -29,6 +32,9 @@ public class CatFilterButton extends Button {
     boolean isExpan;
     PopupWindow mPopupWindow;
     Context mContext;
+    CatFileterAdapter adapter;
+    GridView mGirdView;
+    String groupName;
 
     public CatFilterButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,8 +42,19 @@ public class CatFilterButton extends Button {
     }
 
     public void initCatFileterButtom(String groupName, ArrayList<CategoryChildBean> list) {
+        this.groupName = groupName;
         this.setText(groupName);
         setCatFilterButtonListener();
+        adapter = new CatFileterAdapter(mContext,list);
+        initGirdView();
+    }
+
+    private void initGirdView() {
+        mGirdView = new GridView(mContext);
+        mGirdView.setVerticalSpacing(10);
+        mGirdView.setHorizontalSpacing(10);
+        mGirdView.setNumColumns(GridView.AUTO_FIT);
+        mGirdView.setAdapter(adapter);
     }
 
     private void setCatFilterButtonListener() {
@@ -61,9 +78,7 @@ public class CatFilterButton extends Button {
         mPopupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         mPopupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0xbb000000));
-        TextView textView = new TextView(mContext);
-        textView.setText("HELLO....");
-        mPopupWindow.setContentView(textView);
+        mPopupWindow.setContentView(mGirdView);
         mPopupWindow.showAsDropDown(this);
     }
 
@@ -83,8 +98,8 @@ public class CatFilterButton extends Button {
         Context context;
         ArrayList<CategoryChildBean> list;
 
-        public CatFileterAdapter(Context mContext, ArrayList<CategoryChildBean> list) {
-            this.context = mContext;
+        public CatFileterAdapter(Context context, ArrayList<CategoryChildBean> list) {
+            this.context = context;
             this.list = list;
         }
 
@@ -94,7 +109,7 @@ public class CatFilterButton extends Button {
         }
 
         @Override
-        public Object getItem(int position) {
+        public CategoryChildBean getItem(int position) {
             return list.get(position);
         }
 
@@ -113,6 +128,7 @@ public class CatFilterButton extends Button {
             } else {
                 vh = (CatFileterViewHolder) view.getTag();
             }
+            vh.bind(position);
             return view;
         }
 
@@ -127,7 +143,22 @@ public class CatFilterButton extends Button {
              CatFileterViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
-        }
+
+             public void bind(final int position) {
+                 ImageLoader.downloadImg(context,mIvCategoryChildThumb,list.get(position).getImageUrl());
+                 mTvCategoryChildName.setText(list.get(position).getName());
+                 mLayoutCategoryChild.setOnClickListener(new OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                         MFGT.gotoCategoryChild(context,
+                                 list.get(position).getId(),
+                                 groupName,
+                                 list);
+                         MFGT.finish((CategoryChildActivity)mContext);
+                     }
+                 });
+             }
+         }
     }
 
 }
