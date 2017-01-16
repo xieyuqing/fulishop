@@ -12,6 +12,7 @@ import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
+import cn.ucai.fulicenter.view.CatFilterButton;
 
 
 public class CategoryChildActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class CategoryChildActivity extends AppCompatActivity {
     Button btnSortPrice;
     @BindView(R.id.btn_sort_addtime)
     Button btnSortAddtime;
+    @BindView(R.id.cat_filter)
+    CatFilterButton catFilter;
 
 
     @Override
@@ -33,6 +36,8 @@ public class CategoryChildActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodsFragment)
                 .commit();
+        String groupName = getIntent().getStringExtra(I.CategoryGroup.NAME);
+        catFilter.initCatFileterButtom(groupName,null);
     }
 
     @OnClick({R.id.btn_sort_price, R.id.btn_sort_addtime})
@@ -49,7 +54,7 @@ public class CategoryChildActivity extends AppCompatActivity {
                     right = getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
                 right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
-                btnSortPrice.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,right,null);
+                btnSortPrice.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, right, null);
                 priceAsc = !priceAsc;
                 break;
             case R.id.btn_sort_addtime:
@@ -61,7 +66,7 @@ public class CategoryChildActivity extends AppCompatActivity {
                     right = getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
                 right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
-                btnSortAddtime.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,right,null);
+                btnSortAddtime.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, right, null);
                 addTimeAsc = !addTimeAsc;
                 break;
         }
