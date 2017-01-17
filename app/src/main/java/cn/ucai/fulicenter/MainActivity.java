@@ -1,5 +1,7 @@
 package cn.ucai.fulicenter;
 
+import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,10 +13,12 @@ import android.widget.RadioButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 import cn.ucai.fulicenter.controller.fragment.PersonalFragment;
+import cn.ucai.fulicenter.model.utils.L;
 import cn.ucai.fulicenter.view.MFGT;
 
 public class MainActivity extends AppCompatActivity {
@@ -114,5 +118,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         currentIndex = index;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setRadioStatus();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
+            index = 4;
+            setFragment();
+            setRadioStatus();
+        }
     }
 }

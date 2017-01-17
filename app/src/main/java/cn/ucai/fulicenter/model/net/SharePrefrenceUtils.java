@@ -8,13 +8,15 @@ import android.content.SharedPreferences;
  */
 
 public class SharePrefrenceUtils {
-    private static final String SHARE_PREFRENCE_NAME = "cn.ucai.fulicenter_user";
-    private static final String SHARE_PREFRENCE_NAME_USERNAME = "cn.ucai.fulicenter_username";
+    private static final String SHARE_NAME = "saveUserInfo";
     private static SharePrefrenceUtils instance;
-    private static SharedPreferences prefrences;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    public static final String SHARE_KEY_USER_NAME = "share_key_user_name";
 
     public SharePrefrenceUtils(Context context) {
-        prefrences = context.getSharedPreferences(SHARE_PREFRENCE_NAME, Context.MODE_PRIVATE);
+        mSharedPreferences = context.getSharedPreferences(SHARE_NAME,Context.MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
     }
 
     public static SharePrefrenceUtils getInstance(Context context) {
@@ -25,10 +27,16 @@ public class SharePrefrenceUtils {
     }
 
     public   void saveUser(String username) {
-        prefrences.edit().putString(SHARE_PREFRENCE_NAME_USERNAME, username).commit();
+        mEditor.putString(SHARE_KEY_USER_NAME,username);
+        mEditor.commit();
     }
 
     public  String getUser() {
-        return prefrences.getString(SHARE_PREFRENCE_NAME_USERNAME, null);
+        return mSharedPreferences.getString(SHARE_KEY_USER_NAME,null);
+    }
+
+    public void removeUser() {
+        mEditor.remove(SHARE_KEY_USER_NAME);
+        mEditor.commit();
     }
 }
