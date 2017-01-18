@@ -36,7 +36,7 @@ public class ModelUser implements IModelUser {
     }
 
     @Override
-    public void updataNick(Context context, String username, String usernick, OnCompleteListener<String> listener) {
+    public void updateNick(Context context, String username, String usernick, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
                 .addParam(I.User.USER_NAME,username)

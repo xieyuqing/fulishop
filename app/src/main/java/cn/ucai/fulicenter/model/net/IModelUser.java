@@ -14,5 +14,5 @@ public interface IModelUser {
 
     void register(Context context, String username, String usernick, String password, OnCompleteListener<String> listener);
 
-    void updataNick(Context context,String username,String usernick,OnCompleteListener<String> listener);
+    void updateNick(Context context,String username,String usernick,OnCompleteListener<String> listener);
 }
