@@ -99,9 +99,8 @@ public class SettingsActivity extends AppCompatActivity {
             mTvUserProfileNick.setText(FuLiCenterApplication.getUser().getMuserNick());
         } else if (requestCode == OnSetAvatarListener.REQUEST_CROP_PHOTO) {
             uploadAvatar();
-        } else {
-            mOnSetAvatarListener.setAvatar(requestCode,data,mIvUserProfileAvatar);
         }
+            mOnSetAvatarListener.setAvatar(requestCode,data,mIvUserProfileAvatar);
     }
 
     private void uploadAvatar() {
