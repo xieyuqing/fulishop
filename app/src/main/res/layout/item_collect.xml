@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/layout_goods"
     android:background="@color/white"
-    android:layout_weightSum="1">
+    android:weightSum="1">
     <ImageView
         android:id="@+id/ivGoodsThumb"
         android:layout_width="match_parent"

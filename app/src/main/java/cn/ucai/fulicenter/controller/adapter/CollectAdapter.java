@@ -83,7 +83,7 @@ public class CollectAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList.size()+1;
     }
 
     public void initData(ArrayList<CollectBean> list) {
