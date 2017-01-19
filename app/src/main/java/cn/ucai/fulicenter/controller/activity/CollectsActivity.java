@@ -1,5 +1,9 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +21,7 @@ import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.application.SpaceItemDecoration;
 import cn.ucai.fulicenter.controller.adapter.CollectAdapter;
-import cn.ucai.fulicenter.controller.adapter.GoodsAdapter;
 import cn.ucai.fulicenter.model.bean.CollectBean;
-import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelUser;
@@ -29,7 +31,6 @@ import cn.ucai.fulicenter.model.utils.ConvertUtils;
 import cn.ucai.fulicenter.model.utils.L;
 import cn.ucai.fulicenter.view.DisplayUtils;
 
-import static android.content.ContentValues.TAG;
 
 public class CollectsActivity extends AppCompatActivity {
     private static final String TAG = CollectsActivity.class.getSimpleName();
@@ -43,9 +44,10 @@ public class CollectsActivity extends AppCompatActivity {
     IModelUser model;
     User user;
     int pageId;
-
     GridLayoutManager gm;
     CollectAdapter mAdapter;
+    UpdateCollectReceiver mReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class CollectsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         DisplayUtils.initBackWithTitle(this,"收藏的宝贝");
         user = FuLiCenterApplication.getUser();
+        mReceiver = new UpdateCollectReceiver();
         if (user == null) {
             finish();
         } else {
@@ -60,7 +63,13 @@ public class CollectsActivity extends AppCompatActivity {
             initData(I.ACTION_DOWNLOAD);
             setPullDownListener();
             setPullUpListener();
+            setReceiverListener();
         }
+    }
+
+    private void setReceiverListener() {
+        IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATA_COLLECT);
+        registerReceiver(mReceiver,filter);
     }
 
     private void initData(final int action) {
@@ -146,5 +155,22 @@ public class CollectsActivity extends AppCompatActivity {
                 initData(I.ACTION_PULL_DOWN);
             }
         });
+    }
+
+    class UpdateCollectReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int goodsId = intent.getIntExtra(I.Collect.GOODS_ID, 0);
+            L.e(TAG,"onReceive,goodsId="+goodsId);
+            mAdapter.removeItem(goodsId);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
     }
 }

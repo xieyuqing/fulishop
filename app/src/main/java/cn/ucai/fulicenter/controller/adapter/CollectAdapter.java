@@ -109,6 +109,12 @@ public class CollectAdapter extends RecyclerView.Adapter {
         return isMore ? R.string.load_more : R.string.no_more;
     }
 
+    public void removeItem(int goodsId) {
+        if (goodsId != 0) {
+            mList.remove(new CollectBean(goodsId));
+            notifyDataSetChanged();
+        }
+    }
     class CollectViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView mIvGoodsThumb;
