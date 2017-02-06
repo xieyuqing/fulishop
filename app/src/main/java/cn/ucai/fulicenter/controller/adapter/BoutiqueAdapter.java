@@ -42,7 +42,6 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = new BoutiqueViewHolder(View.inflate(mContext, R.layout.item_boutique, null));
-        LayoutInflater inflater = LayoutInflater.from(mContext);
         return holder;
     }
 

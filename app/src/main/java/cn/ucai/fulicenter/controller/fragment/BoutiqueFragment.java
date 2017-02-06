@@ -35,7 +35,7 @@ import static android.content.ContentValues.TAG;
  * A simple {@link Fragment} subclass.
  */
 public class BoutiqueFragment extends Fragment {
-    //private static final String TAG = NewGoodsFragment.class.getSimpleName();
+    private static final String TAG = NewGoodsFragment.class.getSimpleName();
 
     @BindView(R.id.tv_refresh)
     TextView mTvRefresh;
@@ -46,24 +46,18 @@ public class BoutiqueFragment extends Fragment {
 
     LinearLayoutManager gm;
     BoutiqueAdapter mAdapter;
-    ArrayList<NewGoodsBean> mList = new ArrayList<>();
     IModelNewBoutique model;
-    @BindView(R.id.tv)
-    TextView mTv;
-
-    public BoutiqueFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.tv_nomore)
+    TextView mTvNomore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, layout);
-
         intiView();
         model = new ModelBoutique();
-        //initData(I.ACTION_DOWNLOAD);
+        initData(I.ACTION_DOWNLOAD);
         setPullDownListener();
         return layout;
     }
@@ -87,18 +81,17 @@ public class BoutiqueFragment extends Fragment {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
                 mSrl.setVisibility(View.VISIBLE);
-                mTv.setVisibility(View.GONE);
+                mTvNomore.setVisibility(View.GONE);
                 if (result != null && result.length > 0) {
                     ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
-                    //L.e(TAG, "list.size=" + list.size());
                     if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
                         mAdapter.initData(list);
                     } else {
                         mAdapter.addData(list);
                     }
                 } else {
-                    mTv.setVisibility(View.VISIBLE);
                     mSrl.setVisibility(View.GONE);
+                    mTvNomore.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -107,11 +100,10 @@ public class BoutiqueFragment extends Fragment {
             public void onError(String error) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mTv.setVisibility(View.VISIBLE);
                 mSrl.setVisibility(View.GONE);
+                mTvNomore.setVisibility(View.VISIBLE);
                 CommonUtils.showShortToast(error);
                 L.e(TAG, "error=" + error);
-                //L.e(TAG,"error="+error);
             }
         });
     }
@@ -123,17 +115,17 @@ public class BoutiqueFragment extends Fragment {
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow)
         );
-        mTv.setVisibility(View.VISIBLE);
-        mSrl.setVisibility(View.GONE);
         gm = new LinearLayoutManager(getContext());
         mRv.addItemDecoration(new SpaceItemDecoration(12));
         mRv.setLayoutManager(gm);
         mRv.setHasFixedSize(true);
-        mAdapter = new BoutiqueAdapter(getContext(), null);
+        mAdapter = new BoutiqueAdapter(getContext(), new ArrayList<BoutiqueBean>());
         mRv.setAdapter(mAdapter);
+        mSrl.setVisibility(View.GONE);
+        mTvNomore.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.tv)
+    @OnClick(R.id.tv_nomore)
     public void onClick() {
         initData(I.ACTION_PULL_DOWN);
     }
