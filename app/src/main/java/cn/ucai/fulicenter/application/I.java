@@ -61,6 +61,7 @@ public interface I {
     int ACTION_CART_ADD = 1;
     int ACTION_CART_DEL = 2;
     int ACTION_CART_UPDATE = 3;
+    String PAY_PRICE = "payPrice";
 
     interface Goods {
         String KEY_RESULT = "result";
@@ -216,6 +217,7 @@ public interface I {
         String COUNT="count";
         /**商品是否已被选中*/
         String IS_CHECKED="isChecked";
+        String PAY_PRICE = "payPrice";
     }
 
     interface Collect{
